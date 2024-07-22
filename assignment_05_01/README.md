@@ -230,7 +230,7 @@
         <td>
             Specifically for the previous answer:
             <ul>
-                <li>I hypothesize people that attend a bar at least once a month are more likley to accept coupons because they frequent bars and were likely to go anyway so the coupon may be a motivator to get a discount, additionally being without kids as passengers meant they didn't have to account for finding car for the kids or likely may not have kids in general</li>
+                <li>I hypothesize people that attend a bar at least once a month are more likley to accept coupons because they frequent bars and were likely to go anyway so the coupon may be a motivator to get a discount, additionally being without kids as passengers meant they didn't have to account for finding care for the kids or likely may not have kids in general</li>
                 <li>people that were young and already going to bars at least once a month were more likely to accept the coupon possibly because they were less likely to have kids, given they went to bars once a month anyways coupled with the age I hypothesize they probaly also are more likely to be driving around with nothing to do and have a lot of time flexibility</li>
                 <li>For people attending cheap resteraunts with lower income I hypothesize that they are trying to save money and are probably less likely to go to bars on a whim and so less likely to accept the coupons</li>
             </ul>
