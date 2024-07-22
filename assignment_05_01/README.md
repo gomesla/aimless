@@ -131,7 +131,7 @@
     </tr>
     <tr>
         <th>Answer</th>
-        <td>Based on the analysis below 41.19% of Bar coupons were accepted</td>
+        <td>Based on the analysis 41.19% of Bar coupons were accepted</td>
     </tr>
 </table>
 
@@ -148,7 +148,7 @@
     </tr>
     <tr>
         <th>Answer</th>
-        <td>Based on the analysis below Bar coupons were accepted at approximately double the rate for people who attended a bar more than 3 times a month (76.17%) vs those that went 3 or fewer times a month (37.27%)</td>
+        <td>Based on the analysis Bar coupons were accepted at approximately double the rate for people who attended a bar more than 3 times a month (76.17%) vs those that went 3 or fewer times a month (37.27%)</td>
     </tr>
 </table>
 
@@ -165,7 +165,7 @@
     </tr>
     <tr>
         <th>Answer</th>
-        <td>Based on the analysis below Bar coupons were accepted at approximately double the rate for people who were 25 and over and attended a bar more than once a month (68.98%) vs others (33.77%)</td>
+        <td>Based on the analysis Bar coupons were accepted at approximately double the rate for people who were 25 and over and attended a bar more than once a month (68.98%) vs others (33.77%)</td>
     </tr>
 </table>
 
@@ -182,7 +182,7 @@
     </tr>
     <tr>
         <th>Answer</th>
-        <td>Based on the analysis below Bar coupons were accepted at close to double rate for people go to bars more than once a month and had passengers that were not a kid and had occupations other than farming, fishing, or forestry (70.94%) vs others (29.79%)</td>
+        <td>Based on the analysis Bar coupons were accepted at close to double rate for people go to bars more than once a month and had passengers that were not a kid and had occupations other than farming, fishing, or forestry (70.94%) vs others (29.79%)</td>
     </tr>
 </table>
 
@@ -204,7 +204,7 @@
     <tr>
         <th>Answer</th>
         <td>
-            <b>Answer:</b>Based on the analysis below Bar coupons were accepted at the following rates for the criteria:<br>
+            <b>Answer:</b>Based on the analysis Bar coupons were accepted at the following rates for the criteria:<br>
             <b>Assumption:</b> We are still only looking at bar coupons<br>
             <ul>
                 <li>go to bars more than once a month, had passengers that were not a kid, and were not widowed: 70.94%</li>
