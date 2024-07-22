@@ -63,7 +63,7 @@
         <td>Create new field/s</td>
     </tr>
 </table>
-<p>Based on the calculation below I am ok with dropping all the empty rows from the dataset:
+<p>Based on the calculation below I am ok with dropping all the empty rows from the dataset as I feel we have enough data points left for meaningful analysis:
     <ul>
     <li>Dropped Rows: 605</li>
     <li>Ignored Data %: 4.769788710186061</li>
