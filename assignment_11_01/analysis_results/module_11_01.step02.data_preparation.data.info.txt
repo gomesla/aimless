@@ -1,0 +1,23 @@
+<class 'pandas.core.frame.DataFrame'>
+Index: 347026 entries, 27 to 426879
+Data columns (total 16 columns):
+ #   Column         Non-Null Count   Dtype  
+---  ------         --------------   -----  
+ 0   region         347026 non-null  object 
+ 1   price          347026 non-null  int64  
+ 2   year           347026 non-null  float64
+ 3   manufacturer   347026 non-null  object 
+ 4   model          347026 non-null  object 
+ 5   condition      347026 non-null  object 
+ 6   cylinders      347026 non-null  object 
+ 7   fuel           347026 non-null  object 
+ 8   odometer       347026 non-null  float64
+ 9   title_status   347026 non-null  object 
+ 10  transmission   347026 non-null  object 
+ 11  drive          347026 non-null  object 
+ 12  size           347026 non-null  object 
+ 13  type           347026 non-null  object 
+ 14  state          347026 non-null  object 
+ 15  cleaned_model  347026 non-null  object 
+dtypes: float64(2), int64(1), object(13)
+memory usage: 45.0+ MB

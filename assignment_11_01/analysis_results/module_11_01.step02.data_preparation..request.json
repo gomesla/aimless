@@ -1,0 +1,158 @@
+{
+    "excludeColumnsFromReport": [
+        "VIN",
+        "id",
+        "cleaned_model"
+    ],
+    "operations": [
+        {
+            "operation": "drop",
+            "config": {
+                "VIN": {},
+                "id": {},
+                "paint_color": {}
+            }
+        },
+        {
+            "operation": "toLowerCase",
+            "config": {
+                "state": {},
+                "region": {},
+                "condition": {},
+                "cylinders": {},
+                "fuel": {},
+                "title_status": {},
+                "transmission": {},
+                "drive": {},
+                "manufacturer": {},
+                "size": {},
+                "type": {},
+                "model": {
+                    "field": "cleaned_model",
+                    "removeSpaces": true
+                }
+            }
+        },
+        {
+            "operation": "dropna",
+            "config": {
+                "price": {},
+                "model": {},
+                "manufacturer": {},
+                "odometer": {},
+                "year": {}
+            }
+        },
+        {
+            "operation": "iqr",
+            "config": {
+                "price": {
+                    "q3%": 75,
+                    "q1%": 25
+                },
+                "odometer": {
+                    "q3%": 75,
+                    "q1%": 25
+                },
+                "year": {
+                    "q3%": 75,
+                    "q1%": 25
+                }
+            }
+        },
+        {
+            "operation": "queryFilter",
+            "config": {
+                "price > 0": {
+                    "query": "price > 0"
+                },
+                "odometer > 0": {
+                    "query": "odometer > 0"
+                },
+                "year > 1900": {
+                    "query": "year > 1900"
+                }
+            }
+        },
+        {
+            "operation": "fillna",
+            "config": {
+                "condition": {
+                    "value": "unknown"
+                }
+            }
+        },
+        {
+            "operation": "fillUsingMode",
+            "config": {
+                "Lookup&Fill Pass1": {
+                    "lookupFields": [
+                        "manufacturer",
+                        "cleaned_model",
+                        "year"
+                    ],
+                    "fillFields": [
+                        "cylinders",
+                        "size",
+                        "type",
+                        "drive"
+                    ]
+                },
+                "Lookup&Fill Pass2": {
+                    "lookupFields": [
+                        "manufacturer",
+                        "cleaned_model"
+                    ],
+                    "fillFields": [
+                        "cylinders",
+                        "size",
+                        "type",
+                        "drive"
+                    ]
+                },
+                "Lookup&Fill Pass3": {
+                    "lookupFields": [
+                        "manufacturer",
+                        "type"
+                    ],
+                    "fillFields": [
+                        "size"
+                    ]
+                }
+            }
+        },
+        {
+            "operation": "fillna",
+            "config": {
+                "cylinders": {
+                    "value": "unknown"
+                },
+                "title_status": {
+                    "value": "unknown"
+                },
+                "transmission": {
+                    "value": "unknown"
+                },
+                "drive": {
+                    "value": "unknown"
+                },
+                "fuel": {
+                    "value": "unknown"
+                },
+                "size": {
+                    "value": "unknown"
+                },
+                "type": {
+                    "value": "unknown"
+                }
+            }
+        }
+    ],
+    "labels": {
+        "row_count": "Row Count",
+        "na_value_count": "Empty Value #",
+        "na_value_pct": "Empty Value %",
+        "unq_value_count": "Unique Value Counts",
+        "column": "Feature"
+    }
+}
