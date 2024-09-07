@@ -1,6 +1,6 @@
 # Report: What drives the price of a car?
 
-**Code:** [Data Analysis Workbook](./used_car_price_analysis.template.ipynb)
+**Code:** [Data Analysis Workbook](./used_car_price_analysis.out.ipynb)
 
 **NOTE:** *The processing of the juypter notebook take a long time and often disconnects from the session. In order to run it without monitoring it all the time use the wokraround below from command line.*
 
