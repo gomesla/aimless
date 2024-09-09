@@ -301,7 +301,7 @@ This means move these to the front of your lot and they may benefit from a marku
 If you are thinking of moving inventory the cars earn more in:
 
 - States=ak, mt, wa, co, ca...
-Perhaps you can move cars within thes positive feature regiosn to maximize sale price
+Perhaps you can move cars within thes positive feature regions to maximize sale price
 
 ### Specific Features People DO NOT Value
 
@@ -322,7 +322,7 @@ This means move these to the back of your lot it may be worthwhile getting rid o
 If you are thinking of moving inventory the cars earn less in:
 
 - States=me, fl, ny, nh, il, ....
-Perhaps you can move cars with positive features to better performing regsions
+Perhaps you can move cars with negative features to better performing regions to benefit from the markup
 
 Using the charts above to make decisions about what types of features about the vehicle to prioritize in your inventory
 
