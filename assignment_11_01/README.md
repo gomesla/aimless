@@ -301,7 +301,7 @@ This means move these to the front of your lot and they may benefit from a marku
 If you are thinking of moving inventory the cars earn more in:
 
 - States=ak, mt, wa, co, ca...
-Perhaps you can move cars within thes positive feature regions to maximize sale price
+Perhaps you can move cars within these positive feature regions to maximize sale price
 
 ### Specific Features People DO NOT Value
 
