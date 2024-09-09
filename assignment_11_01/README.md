@@ -295,6 +295,7 @@ Do Prioritize:
 - Transmission=Manual
 - Fuel=Diesel
 - Title=Clean
+
 If you are thinking of moving inventory the cars earn more in:
 
 - States=ak, mt, wa, co, ca...
@@ -313,10 +314,11 @@ Do NOT Prioritize:
 - Size=Compact, Sub-Compact
 - Drive=FWD
 - Cylinders=4 and lower
+
 If you are thinking of moving inventory the cars earn less in:
 
 - States=me, fl, ny, nh, il, ....
 Perhaps you can move cars with positive features to better performing regsions
 
-Using the charts above to make decisions about wheat types of features about the vehicly to prioritize in your inventory
+Using the charts above to make decisions about what types of features about the vehicly to prioritize in your inventory
 
