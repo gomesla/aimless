@@ -15,7 +15,7 @@ Jump to the good stuff: [Recommendations](#Recommendations)
 
 We are provided with a dataset of used car prices and features about that particular vehicle. Our final goal will be to identify which 'features' AND what values of those features most contribute to the final price both positively and negatively.
 
-Because the data has high dimensionality we will need to make use of transformers to get the data ready for use in regularization. Once data is cleaned and prepared we will then try out multiple linear regression models to find the best one. Once done we will use the coefficients to identify how features contribute to price.
+Because the data has high dimensionality and many categorical fields we will need to make use of transformers to get the data represented as numerical features, ready for use in regularization. Once data is cleaned and prepared we will then try out multiple linear regression models to find the best one. Once done we will use the coefficients to identify how features contribute to price.
 
 Once we have found these imortant features we will write up actionable guidance for used car business
 
@@ -178,9 +178,9 @@ max    7.317101e+09  3.736929e+09    2022.000000  1.000000e+07</pre></td></tr><t
 <li>Drop rows not meeting criteria Q1[0.25] <= odometer <= Q3[0.75]</li>
 <li>Drop rows not meeting criteria Q1[0.25] <= year <= Q3[0.75]</ul></td></tr>
 <tr>
-<td>Step5</td><td><ul><li>Drop rows meeting the critera "price > 0"</li>
-<li>Drop rows meeting the critera "odometer > 0"</li>
-<li>Drop rows meeting the critera "year > 1900"</ul></td></tr>
+<td>Step5</td><td><ul><li>Drop rows not meeting the critera "price > 0"</li>
+<li>Drop rows not meeting the critera "odometer > 0"</li>
+<li>Drop rows not meeting the critera "year > 1900"</ul></td></tr>
 <tr>
 <td>Step6</td><td><ul><li>Fill rows where condition is empty with "unknown"</ul></td></tr>
 <tr>
@@ -242,6 +242,730 @@ min         1.000000    1997.000000       1.000000
 max     57460.000000    2022.000000  275225.000000</pre></td></tr><tr><td colspan="2">
 <a href="./analysis_results/module_11_01.step02.data_preparation.data.distribution.png" target="_blank"><img src="./analysis_results/module_11_01.step02.data_preparation.data.distribution.png"/></a>
 </td></tr></tr></table>
+
+### Field Correlations
+
+To get a better idea of how the variables/features (dependent and indepenednt) correlate to each other we will generate a heatmap.
+
+<table>
+<tr>
+<th>Visual</th>
+<th>Notes</th>
+</tr>
+<tr>
+<th valign="top"><a href="./analysis_results/module_11_01.step02.data_preparation.raw.data.heatmap.png" target="_blank"><img src="./analysis_results/module_11_01.step02.data_preparation.raw.data.heatmap.png"/></a></th>
+</tr>
+<tr>
+<th valign="top"><a href="./analysis_results/module_11_01.step02.data_preparation.preProcessed.data.heatmap.png" target="_blank"><img src="./analysis_results/module_11_01.step02.data_preparation.preProcessed.data.heatmap.png"/></a></th>
+</tr>
+<tr>
+<th valign="top"><a href="./analysis_results/module_11_01.step02.data_preparation.final.data.heatmap.png" target="_blank"><img src="./analysis_results/module_11_01.step02.data_preparation.final.data.heatmap.png"/></a></th>
+<th valign="top">Looking at just correlations above 0.3 we see:
+
+Postive Correlations:
+
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pair</th>
+      <th>correlation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>55</th>
+      <td>(type_unknown, size_unknown)</td>
+      <td>0.905622</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>(encoded_cleaned_model, price)</td>
+      <td>0.729515</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>(transmission_other, condition_good)</td>
+      <td>0.608644</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(year, price)</td>
+      <td>0.602532</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>(fuel_electric, manufacturer_tesla)</td>
+      <td>0.586166</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>(encoded_cleaned_model, transmission_other)</td>
+      <td>0.466898</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>(drive_fwd, cylinders_4 cylinders)</td>
+      <td>0.434676</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>(type_sedan, drive_fwd)</td>
+      <td>0.397905</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>(size_full-size, cylinders_8 cylinders)</td>
+      <td>0.392260</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>(fuel_electric, cylinders_other)</td>
+      <td>0.389180</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>(drive_unknown, cylinders_unknown)</td>
+      <td>0.388893</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>(transmission_automatic, odometer)</td>
+      <td>0.371882</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>(transmission_other, fuel_other)</td>
+      <td>0.359839</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>(transmission_other, price)</td>
+      <td>0.358747</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>(encoded_cleaned_model, year)</td>
+      <td>0.357198</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>(transmission_other, cylinders_unknown)</td>
+      <td>0.352898</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>(transmission_other, year)</td>
+      <td>0.352314</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(cylinders_12 cylinders, manufacturer_aston-martin)</td>
+      <td>0.350461</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>(encoded_cleaned_model, type_pickup)</td>
+      <td>0.340703</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>(encoded_cleaned_model, cylinders_8 cylinders)</td>
+      <td>0.332079</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>(type_truck, cylinders_8 cylinders)</td>
+      <td>0.331050</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>(encoded_cleaned_model, condition_good)</td>
+      <td>0.329892</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>(size_unknown, drive_unknown)</td>
+      <td>0.328905</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>(type_unknown, drive_unknown)</td>
+      <td>0.328200</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>(type_sedan, cylinders_4 cylinders)</td>
+      <td>0.307722</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>(type_pickup, cylinders_8 cylinders)</td>
+      <td>0.306310</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>(cylinders_5 cylinders, manufacturer_volvo)</td>
+      <td>0.302344</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>(type_suv, drive_4wd)</td>
+      <td>0.299876</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>(type_pickup, drive_4wd)</td>
+      <td>0.299305</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>(size_compact, cylinders_4 cylinders)</td>
+      <td>0.291356</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>(type_suv, manufacturer_jeep)</td>
+      <td>0.288057</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>(size_full-size, drive_4wd)</td>
+      <td>0.284774</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>(type_pickup, size_full-size)</td>
+      <td>0.281581</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>(transmission_automatic, condition_unknown)</td>
+      <td>0.280951</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>(type_coupe, drive_rwd)</td>
+      <td>0.274350</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>(type_truck, size_full-size)</td>
+      <td>0.271703</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>(size_unknown, cylinders_unknown)</td>
+      <td>0.271700</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>(encoded_region, price)</td>
+      <td>0.270704</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>(fuel_other, condition_good)</td>
+      <td>0.270273</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>(type_truck, fuel_diesel)</td>
+      <td>0.267547</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>(type_pickup, price)</td>
+      <td>0.264162</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>(encoded_cleaned_model, drive_4wd)</td>
+      <td>0.262205</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>(drive_4wd, cylinders_8 cylinders)</td>
+      <td>0.261525</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>(type_unknown, cylinders_unknown)</td>
+      <td>0.259580</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>(cylinders_unknown, condition_good)</td>
+      <td>0.257593</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>(encoded_cleaned_model, size_full-size)</td>
+      <td>0.254064</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>(type_hatchback, size_compact)</td>
+      <td>0.248381</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>(cylinders_8 cylinders, manufacturer_chevrolet)</td>
+      <td>0.247758</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>(type_wagon, manufacturer_subaru)</td>
+      <td>0.242022</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>(type_truck, manufacturer_ram)</td>
+      <td>0.238994</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>(encoded_cleaned_model, cylinders_unknown)</td>
+      <td>0.236536</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>(encoded_cleaned_model, type_truck)</td>
+      <td>0.235072</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>(type_other, transmission_other)</td>
+      <td>0.233567</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>(encoded_cleaned_model, fuel_diesel)</td>
+      <td>0.231526</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>(type_truck, drive_4wd)</td>
+      <td>0.228739</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>(encoded_cleaned_model, fuel_other)</td>
+      <td>0.228293</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>(fuel_diesel, manufacturer_ram)</td>
+      <td>0.226269</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>(cylinders_unknown, year)</td>
+      <td>0.223277</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>(drive_4wd, price)</td>
+      <td>0.222485</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>(cylinders_8 cylinders, price)</td>
+      <td>0.221963</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>(fuel_diesel, price)</td>
+      <td>0.217940</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>(encoded_cleaned_model, manufacturer_ram)</td>
+      <td>0.217676</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>(encoded_cleaned_model, encoded_region)</td>
+      <td>0.217430</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>(type_pickup, manufacturer_ram)</td>
+      <td>0.217240</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>(size_mid-size, cylinders_4 cylinders)</td>
+      <td>0.212842</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>(cylinders_unknown, price)</td>
+      <td>0.212551</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>(drive_4wd, manufacturer_jeep)</td>
+      <td>0.211818</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(cylinders_5 cylinders, manufacturer_volkswagen)</td>
+      <td>0.205140</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>(encoded_cleaned_model, drive_unknown)</td>
+      <td>0.203797</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>(drive_unknown, transmission_other)</td>
+      <td>0.203666</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>(cylinders_other, manufacturer_tesla)</td>
+      <td>0.203160</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>(size_compact, drive_fwd)</td>
+      <td>0.202905</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>(type_hatchback, drive_fwd)</td>
+      <td>0.202477</td>
+    </tr>
+  </tbody>
+</table>
+
+Negative Correlations:<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pair</th>
+      <th>correlation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>31</th>
+      <td>(transmission_other, transmission_automatic)</td>
+      <td>-0.857166</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>(fuel_other, fuel_gas)</td>
+      <td>-0.679696</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>(odometer, year)</td>
+      <td>-0.676116</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>(size_mid-size, size_full-size)</td>
+      <td>-0.671203</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>(drive_fwd, drive_4wd)</td>
+      <td>-0.649229</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>(title_status_rebuilt, title_status_clean)</td>
+      <td>-0.594905</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>(title_status_unknown, title_status_clean)</td>
+      <td>-0.592336</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>(fuel_gas, fuel_diesel)</td>
+      <td>-0.552362</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>(odometer, price)</td>
+      <td>-0.547656</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>(transmission_automatic, condition_good)</td>
+      <td>-0.527686</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>(condition_unknown, condition_good)</td>
+      <td>-0.527258</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>(cylinders_6 cylinders, cylinders_4 cylinders)</td>
+      <td>-0.502511</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>(encoded_cleaned_model, drive_fwd)</td>
+      <td>-0.472648</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>(encoded_cleaned_model, cylinders_4 cylinders)</td>
+      <td>-0.455126</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>(condition_unknown, condition_excellent)</td>
+      <td>-0.444875</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>(transmission_other, odometer)</td>
+      <td>-0.438511</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>(size_full-size, size_compact)</td>
+      <td>-0.433855</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>(title_status_salvage, title_status_clean)</td>
+      <td>-0.423581</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>(size_full-size, cylinders_4 cylinders)</td>
+      <td>-0.408740</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>(transmission_manual, transmission_automatic)</td>
+      <td>-0.407041</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>(cylinders_8 cylinders, cylinders_6 cylinders)</td>
+      <td>-0.397851</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>(encoded_cleaned_model, transmission_automatic)</td>
+      <td>-0.392093</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>(type_sedan, drive_4wd)</td>
+      <td>-0.389559</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>(drive_rwd, drive_4wd)</td>
+      <td>-0.376548</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>(drive_fwd, cylinders_8 cylinders)</td>
+      <td>-0.376351</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>(condition_good, condition_excellent)</td>
+      <td>-0.376321</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>(cylinders_8 cylinders, cylinders_4 cylinders)</td>
+      <td>-0.371407</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>(drive_fwd, price)</td>
+      <td>-0.356622</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>(type_suv, type_sedan)</td>
+      <td>-0.349783</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>(encoded_cleaned_model, type_sedan)</td>
+      <td>-0.343515</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>(encoded_cleaned_model, odometer)</td>
+      <td>-0.341687</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>(drive_rwd, drive_fwd)</td>
+      <td>-0.333011</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>(cylinders_4 cylinders, price)</td>
+      <td>-0.322138</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>(transmission_other, condition_unknown)</td>
+      <td>-0.317907</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>(encoded_cleaned_model, fuel_gas)</td>
+      <td>-0.303658</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>(transmission_automatic, fuel_other)</td>
+      <td>-0.300909</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>(transmission_automatic, cylinders_unknown)</td>
+      <td>-0.298857</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>(transmission_automatic, price)</td>
+      <td>-0.289433</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>(size_mid-size, size_compact)</td>
+      <td>-0.283488</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>(fuel_hybrid, fuel_gas)</td>
+      <td>-0.282553</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>(fuel_gas, price)</td>
+      <td>-0.269519</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>(size_mid-size, cylinders_8 cylinders)</td>
+      <td>-0.263274</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>(size_full-size, drive_fwd)</td>
+      <td>-0.258092</td>
+    </tr>
+    <tr>
+      <th>47</th>
+      <td>(type_pickup, drive_fwd)</td>
+      <td>-0.256023</td>
+    </tr>
+    <tr>
+      <th>48</th>
+      <td>(type_sedan, price)</td>
+      <td>-0.255789</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>(title_status_lien, title_status_clean)</td>
+      <td>-0.253970</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>(cylinders_unknown, odometer)</td>
+      <td>-0.252266</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>(transmission_automatic, year)</td>
+      <td>-0.248795</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>(type_sedan, cylinders_8 cylinders)</td>
+      <td>-0.244575</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>(type_truck, drive_fwd)</td>
+      <td>-0.240123</td>
+    </tr>
+    <tr>
+      <th>46</th>
+      <td>(type_pickup, cylinders_4 cylinders)</td>
+      <td>-0.233278</td>
+    </tr>
+    <tr>
+      <th>51</th>
+      <td>(type_sedan, type_pickup)</td>
+      <td>-0.230480</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>(drive_4wd, cylinders_4 cylinders)</td>
+      <td>-0.227830</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>(transmission_other, fuel_gas)</td>
+      <td>-0.227347</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>(transmission_other, condition_excellent)</td>
+      <td>-0.227212</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>(cylinders_unknown, cylinders_6 cylinders)</td>
+      <td>-0.226550</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>(type_suv, type_pickup)</td>
+      <td>-0.215330</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>(cylinders_unknown, cylinders_4 cylinders)</td>
+      <td>-0.211492</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>(size_compact, drive_4wd)</td>
+      <td>-0.211023</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>(type_other, transmission_automatic)</td>
+      <td>-0.208270</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>(condition_good, odometer)</td>
+      <td>-0.207734</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>(type_truck, cylinders_4 cylinders)</td>
+      <td>-0.202070</td>
+    </tr>
+  </tbody>
+</table>
+
+</th>
+</tr>
+</table>
 
 ## Modeling
 
