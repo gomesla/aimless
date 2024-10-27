@@ -6,6 +6,16 @@ We are trying to analyze the results of a Portugese Bank marketing campaign cond
 The dataset collected is related to 17 campaigns that occurred between May 2008 and November 2010, corresponding to a total of 79354 contacts
 
 We will follow the CRISP-DM process model consisting of Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, Deployment stages.
+## Research Code
+**Code:** [Data Analysis Workbook](./prompt_III.out.ipynb)
+
+**NOTE:** *The processing of the juypter notebook take a long time and often disconnects from the session. In order to run it without monitoring it all the time use the wokraround below from command line.*
+```
+jupyter nbconvert --to notebook --execute {input_notebook} --output={output_notebook} --ExecutePreprocessor.timeout=-1
+```
+<sub>Source: [screen-and-jupyter-a-way-to-run-long-notebooks-headles](https://www.maksimeren.com/post/screen-and-jupyter-a-way-to-run-long-notebooks-headless/)</sub>
+
+Jump to the good stuff: [Summary, Observations and Guidance](#next-steps-summary-observations-and-guidance)
 ## CRISP DM: Data Understanding
 ### Data Shape
 The data has the following information
