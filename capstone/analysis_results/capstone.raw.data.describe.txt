@@ -1,0 +1,11 @@
+                                                                                                               Original  \
+count                                                                                                             47837   
+unique                                                                                                            47837   
+top     connection with icon icon dear please setup icon per icon engineers please let other details needed thanks lead   
+freq                                                                                                                  1   
+
+          target  
+count      47837  
+unique         8  
+top     Hardware  
+freq       13617  
