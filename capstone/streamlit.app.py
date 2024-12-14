@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
+import requests
+from io import StringIO
 
 from xgboost import XGBClassifier
 
@@ -21,13 +23,18 @@ nltk.download('punkt')
 nltk.download('stopwords')
 
 
-INPUT_FILE = './data/all_tickets_processed_improved_v3.csv'
+INPUT_FILE = 'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/data/all_tickets_processed_improved_v3.csv'
 DOCUMENT_FIELD = 'Original'
 TARGET_FIELD = 'target'
 TARGET_FIELD_ENCODED = 'target_encoded'
 
 stop_words = set(stopwords.words('english'))
-rawDf = pd.read_csv(INPUT_FILE)
+url = INPUT_FILE
+print(f'Downloading: {url}')
+response = requests.get(url)
+if response.status_code != 200:
+    raise Exception(f'Unable to download: {url}')
+rawDf = pd.read_csv(StringIO(response.text))
 rawDf = rawDf.rename(columns={"Document": DOCUMENT_FIELD, "Topic_group": TARGET_FIELD})
 rawDf.info()
 
