@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import requests
+import os
+import urllib
 from io import StringIO
+import json
 
 from xgboost import XGBClassifier
 
@@ -17,36 +20,40 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk import word_tokenize
-nltk.download('wordnet')
-#nltk.download('omw-1.4')
-nltk.download('punkt_tab')
-nltk.download('stopwords')
+
+import dill
+
+def readFile(path, notFoundException=True):
+    data = '';
+    if os.path.exists(path):
+        with open(path) as f: 
+            data = f.read()
+    elif notFoundException:
+        raise Exception(f'{path} does not exist')
+    return data
+    
+def readJson(path):
+    data = readFile(path)
+    return json.loads(data)
+
+def writeString2File(string2Write, path, print2Screen = False):
+    if print2Screen:
+        print(string2Write)
+    with open(path, "w") as text_file:
+        text_file.write(str(string2Write))
 
 
-INPUT_FILE = 'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/data/all_tickets_processed_improved_v3.csv'
-DOCUMENT_FIELD = 'Original'
-TARGET_FIELD = 'target'
-TARGET_FIELD_ENCODED = 'target_encoded'
+PICKLE_MODEL_FILE = './resources/model.pkl'
+CLASS_MAPPINGS_FILE = './resources/mappings.json'
+TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False
 
-stop_words = set(stopwords.words('english'))
-url = INPUT_FILE
-print(f'Downloading: {url}')
-response = requests.get(url)
-if response.status_code != 200:
-    raise Exception(f'Unable to download: {url}')
-rawDf = pd.read_csv(StringIO(response.text))
-rawDf = rawDf.rename(columns={"Document": DOCUMENT_FIELD, "Topic_group": TARGET_FIELD})
-rawDf.info()
+if TRAIN_MODE:
+    nltk.download('wordnet')
+    nltk.download('omw-1.4')
+    nltk.download('punkt_tab')
+    nltk.download('stopwords')
 
-experimentDf = rawDf.copy()
-UNIQUE_TARGET_CLASS_COUNT = len(rawDf[TARGET_FIELD].value_counts().values)
-
-labelEncoder = LabelEncoder()
-labelEncoder.fit(experimentDf[TARGET_FIELD])
-CLASS_MAPPING =  dict(zip(labelEncoder.transform(labelEncoder.classes_), labelEncoder.classes_))
-experimentDf[TARGET_FIELD_ENCODED]= labelEncoder.transform(experimentDf[TARGET_FIELD]) 
-
-def preProcess(row):
+def preProcess(row, stop_words):
     if type(row) is str:
         text = row
     else:
@@ -65,6 +72,7 @@ def preProcess(row):
 # https://towardsdatascience.com/elegant-text-pre-processing-with-nltk-in-sklearn-pipeline-d6fe18b91eb
 class PreprocessingTransformer(TransformerMixin, BaseEstimator):
     def __init__(self):
+        self.stop_words = set(stopwords.words('english'))
         pass
 
     def fit(self, X, y, **transform_params):
@@ -73,13 +81,58 @@ class PreprocessingTransformer(TransformerMixin, BaseEstimator):
     def transform(self, X, **transform_params):
         X_copy = X.copy()
         if isinstance(X_copy, pd.DataFrame):
-            X_copy = X_copy.apply(preProcess, axis=1)
+            X_copy = X_copy.apply(lambda row: preProcess(row, stop_words=self.stop_words), axis=1)
         else:
-            X_copy = X_copy.apply(preProcess)
+            X_copy = X_copy.apply(lambda value: preProcess(value, stop_words=self.stop_words))
         return X_copy
 
 @st.cache_resource()
+def loadClassMappings():
+    mappings = {}
+    if os.path.exists(CLASS_MAPPINGS_FILE):
+        mappings = readJson(CLASS_MAPPINGS_FILE)
+    else:
+        mappings = json.loads(urllib.request.urlopen(f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/{CLASS_MAPPINGS_FILE}'))
+    return mappings
+
+@st.cache_resource()
+def loadModel():
+    print(f'Loading model...')
+    model = None
+    if os.path.exists(PICKLE_MODEL_FILE):
+        with open(PICKLE_MODEL_FILE, 'rb') as f:
+            model = dill.load(f)
+    else:
+        model = dill.load(urllib.request.urlopen(f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone//{PICKLE_MODEL_FILE}'))
+    print(f'Loading model...DONE')
+    
+    return model
+    
+    
 def trainModel():
+    print(f'Training model...')
+    INPUT_FILE = './data/all_tickets_processed_improved_v3.csv'
+    DOCUMENT_FIELD = 'Original'
+    TARGET_FIELD = 'target'
+    TARGET_FIELD_ENCODED = 'target_encoded'
+
+    rawDf = pd.read_csv(INPUT_FILE)
+    rawDf = rawDf.rename(columns={"Document": DOCUMENT_FIELD, "Topic_group": TARGET_FIELD})
+    rawDf.info()
+    
+    experimentDf = rawDf.copy()
+    UNIQUE_TARGET_CLASS_COUNT = len(rawDf[TARGET_FIELD].value_counts().values)
+    
+    labelEncoder = LabelEncoder()
+    labelEncoder.fit(experimentDf[TARGET_FIELD])
+    mappings =  dict(zip(labelEncoder.transform(labelEncoder.classes_), labelEncoder.classes_))
+    mappingJson = {}
+    for key, value in mappings.items():
+        mappingJson[str(key)] = value
+    writeString2File(json.dumps(mappingJson, indent=2), CLASS_MAPPINGS_FILE) 
+    experimentDf[TARGET_FIELD_ENCODED]= labelEncoder.transform(experimentDf[TARGET_FIELD]) 
+
+    
     pipeline = Pipeline([
         ('preprocesssor', PreprocessingTransformer()),
         ('vectorizer', TfidfVectorizer(max_features=None)),
@@ -101,6 +154,12 @@ def trainModel():
     else:
         pipeline.fit(X[DOCUMENT_FIELD], y)
 
+    print(f'Training model...DONE')
+    print(f'Pickling model...')
+    
+    with open(PICKLE_MODEL_FILE, 'wb') as f:  # open a text file
+        dill.dump(pipeline, f) # serialize the list
+    print(f'Pickling model...DONE')
     return pipeline
 
 
@@ -109,11 +168,15 @@ st.set_page_config(page_title="Capstone: IT Ticket Classification", page_icon=":
 st.title("Capstone: IT Ticket Classification")
 st.write(
     """
-    This is a demo of the best model as determined by the Capstone Project
+    This is a demo of the best model as determined by the [Capstone Project](https://github.com/gomesla/aimless/tree/main/capstone). Please be patient while the model loads ...
     """
 )
 
-model = trainModel()
+if TRAIN_MODE:
+    model = trainModel()
+
+model = loadModel()
+classMappings = loadClassMappings()
 
 # Input text box for the sentence to classify
 inputString = st.text_input("Enter the sentence to classify:", key="input_sentence", 
@@ -126,7 +189,7 @@ if st.button("Classify", key="classify_button"):
         input = pd.Series()
         input.loc[0] = inputString
         result = model.predict(input)
-        category = CLASS_MAPPING[result[0]]
+        category = classMappings[str(result[0])]
         # Display classification results
         st.subheader("Classification Results:")
         st.markdown("---")

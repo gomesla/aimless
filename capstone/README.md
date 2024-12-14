@@ -896,6 +896,10 @@ weighted avg       0.86      0.86      0.86     14352
 - In general if we want a model capable of dealing with larger sets I would go with:
   - XGBoost which is very efficent and scores highly vs our best model as well as is easy to train as it can make use of multiple cores. For training time it appears that a majority of the time is actually spent in the vectorization as the count vs TFIDF perform comparably for score but the TFIDF takes longer to train.
   - If we can trade off on ROC AUC score I would go with RandomForestClassifier which had good tradeoff for speed of training.
+### Deployment
+- The best model from above is deployed as a Streamlit application below:
+  - **Streamlit Application**: [Capstone: IT Ticket Classification](https://aimless-capstone.streamlit.app/)
+
 ### Next Steps
 Deep learning may be able get us even better results. This would be worth researching.
 
