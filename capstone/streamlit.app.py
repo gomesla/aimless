@@ -59,11 +59,11 @@ TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False and len(IN_STREAMLIT) > 
 FORCE_URL = False
 print(f'Training Mode: {TRAIN_MODE}')
 
-if TRAIN_MODE:
-    nltk.download('wordnet')
-    nltk.download('omw-1.4')
-    nltk.download('punkt_tab')
-    nltk.download('stopwords')
+
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
 
 def preProcess(row, stop_words):
     if type(row) is str:
