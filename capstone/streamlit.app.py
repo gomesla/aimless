@@ -6,6 +6,7 @@ import os
 import urllib
 from io import StringIO
 import json
+import platform
 
 from xgboost import XGBClassifier
 
@@ -45,7 +46,9 @@ def writeString2File(string2Write, path, print2Screen = False):
 
 PICKLE_MODEL_FILE = './resources/model.pkl'
 CLASS_MAPPINGS_FILE = './resources/mappings.json'
-TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False
+IN_STREAMLIT = platform.processor()
+TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False and len(IN_STREAMLIT) > 0
+print(f'Training Mode: {TRAIN_MODE}')
 
 if TRAIN_MODE:
     nltk.download('wordnet')
