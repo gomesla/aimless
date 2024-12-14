@@ -43,11 +43,20 @@ def writeString2File(string2Write, path, print2Screen = False):
     with open(path, "w") as text_file:
         text_file.write(str(string2Write))
 
+def readBinaryFileFromURL(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.content
+    else:
+        st.error(f"Error downloading file: {response.status_code}")
+        return None
+
 
 PICKLE_MODEL_FILE = './resources/model.pkl'
 CLASS_MAPPINGS_FILE = './resources/mappings.json'
 IN_STREAMLIT = platform.processor()
 TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False and len(IN_STREAMLIT) > 0
+FORCE_URL = False
 print(f'Training Mode: {TRAIN_MODE}')
 
 if TRAIN_MODE:
@@ -92,21 +101,29 @@ class PreprocessingTransformer(TransformerMixin, BaseEstimator):
 @st.cache_resource()
 def loadClassMappings():
     mappings = {}
-    if os.path.exists(CLASS_MAPPINGS_FILE):
+    if os.path.exists(CLASS_MAPPINGS_FILE) and FORCE_URL == False:
+        print(f'\tSource: {CLASS_MAPPINGS_FILE}')
         mappings = readJson(CLASS_MAPPINGS_FILE)
     else:
-        mappings = json.loads(urllib.request.urlopen(f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/{CLASS_MAPPINGS_FILE}'))
+        url = f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/{CLASS_MAPPINGS_FILE}'
+        print(f'\tSource: {url}')
+        with urllib.request.urlopen(url) as response:
+            data = response.read()
+            mappings = json.loads(data)
     return mappings
 
 @st.cache_resource()
 def loadModel():
     print(f'Loading model...')
     model = None
-    if os.path.exists(PICKLE_MODEL_FILE):
+    if os.path.exists(PICKLE_MODEL_FILE) and FORCE_URL == False:
+        print(f'\tSource: {PICKLE_MODEL_FILE}')
         with open(PICKLE_MODEL_FILE, 'rb') as f:
             model = dill.load(f)
     else:
-        model = dill.load(urllib.request.urlopen(f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone//{PICKLE_MODEL_FILE}'))
+        url = f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone//{PICKLE_MODEL_FILE}'
+        print(f'\tSource: {url}')
+        model = dill.loads(readBinaryFileFromURL(url))
     print(f'Loading model...DONE')
     
     return model
