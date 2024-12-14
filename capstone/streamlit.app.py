@@ -193,6 +193,7 @@ st.write(
 )
 
 if TRAIN_MODE:
+    st.write(f'Training Mode: {TRAIN_MODE}\n\n')
     model = trainModel()
 
 model = loadModel()
