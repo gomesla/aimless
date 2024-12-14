@@ -3,6 +3,5 @@ numpy
 xgboost
 scikit-learn
 nltk
-pickle
 dill
 urllib
