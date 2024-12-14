@@ -2,3 +2,7 @@
 .DS_Store
 
 **/.ipynb_checkpoints/
+
+capstone/analysis_results.development/
+
+capstone/README.development.md

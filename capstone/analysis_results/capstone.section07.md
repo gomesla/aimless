@@ -1,17 +1,18 @@
 ## Deployment and Future Work
 ### Observations
 - We got lucky with this dataset and the data seemed to have some level of preprocessing (unclear based on documentation) done for us but lowercasing and removing stop words is a must.
-- Original field performed best for accuracy. Surprisngly stemming and lemmatization had worse performance. More analysis may be needed, however the loss in accuracy is not significant enough. We would still prefer to do lemmatization which gives next best accuracy.
+- Original field performed best for ROC AUC score. Surprisngly stemming and lemmatization did not have much of an impact on performance likely because the data had already been pre-processsed as noted earlier. More analysis may be needed, however the loss in ROC AUC score is not significant enough to be of concern right now. We would still prefer to do lemmatization in general.
 - The TfidfVectorizer paired with various models performs best. We should definitely use TfidfVectorizer in our pipeline.
-- It is very clear that while Logistic Regression performed best the processing time is very high.
+- It is very clear that to get the best performance from the XGBClassifier we have to pay for it inprocessing time.
 ### Model/Pipeline Selection
-- Given the choice if we want to maximize accuracy we would pick our best pipeline which had an accuracy score of 86.43%:
+- Given the choice if we want to maximize ROC AUC score we would pick our best pipeline which had an ROC AUC score of 98.70%:
   - Preprocessing=Original
   - Vectorizer=TfidfVectorizer
-  - Model=LogisticRegression ({"model__C": 1, "model__l1_ratio": 1.0, "model__penalty": "elasticnet", "model__solver": "saga", "vectorizer__max_features": null})
+  - Model=XGBClassifier ({"model__colsample_bytree": 0.5, "model__max_depth": 10, "model__subsample": 0.7, "vectorizer__max_features": null})
 
-- In general if we want a model capable of dealing with larger sets where training time is a concern and we can trade off on accuracy I would go with:
-  - Complement Naive Bayes as industry expectation is the data will be imbalanced for IT tickets. Even though it was third best the kNN classifier was only marginally better
+- In general if we want a model capable of dealing with larger sets I would go with:
+  - XGBoost which is very efficent and scores highly vs our best model as well as is easy to train as it can make use of multiple cores. For training time it appears that a majority of the time is actually spent in the vectorization as the count vs TFIDF perform comparably for score but the TFIDF takes longer to train.
+  - If we can trade off on ROC AUC score I would go with RandomForestClassifier which had good tradeoff for speed of training.
 ### Next Steps
 Deep learning may be able get us even better results. This would be worth researching.
 
