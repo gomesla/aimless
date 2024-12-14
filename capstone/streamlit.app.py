@@ -17,10 +17,10 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk import word_tokenize
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('punkt')
-nltk.download('stopwords')
+#nltk.download('wordnet')
+#nltk.download('omw-1.4')
+#nltk.download('punkt')
+#nltk.download('stopwords')
 
 
 INPUT_FILE = 'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone/data/all_tickets_processed_improved_v3.csv'
