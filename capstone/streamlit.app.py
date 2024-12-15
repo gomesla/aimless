@@ -17,6 +17,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import classification_report
 
 import dill
+import pickle
 
 from lib.CapstonePreprocessingTransformer import CapstonePreprocessingTransformer
 
@@ -77,11 +78,11 @@ def loadModel():
     if os.path.exists(PICKLE_MODEL_FILE) and FORCE_URL == False:
         print(f'\tSource: {PICKLE_MODEL_FILE}')
         with open(PICKLE_MODEL_FILE, 'rb') as f:
-            model = dill.load(f)
+            model = pickle.load(f)
     else:
         url = f'https://raw.githubusercontent.com/gomesla/aimless/refs/heads/main/capstone//{PICKLE_MODEL_FILE}'
         print(f'\tSource: {url}')
-        model = dill.loads(readBinaryFileFromURL(url))
+        model = pickle.loads(readBinaryFileFromURL(url))
     print(f'Loading model...DONE')
     
     return model
