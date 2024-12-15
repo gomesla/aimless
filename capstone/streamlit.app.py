@@ -14,15 +14,11 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.metrics import classification_report
 
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from nltk import word_tokenize
-
 import dill
+
+from lib.CapstonePreprocessingTransformer import CapstonePreprocessingTransformer
 
 def readFile(path, notFoundException=True):
     data = '';
@@ -51,52 +47,14 @@ def readBinaryFileFromURL(url):
         st.error(f"Error downloading file: {response.status_code}")
         return None
 
-
-PICKLE_MODEL_FILE = './resources/model.pkl'
-CLASS_MAPPINGS_FILE = './resources/mappings.json'
+RESOURCE_DIR = './resources'
+PICKLE_MODEL_FILE = f'{RESOURCE_DIR}/model.pkl'
+CLASS_MAPPINGS_FILE = f'{RESOURCE_DIR}/mappings.json'
 IN_STREAMLIT = platform.processor()
 TRAIN_MODE = os.path.exists(PICKLE_MODEL_FILE) == False and len(IN_STREAMLIT) > 0
 FORCE_URL = False
 print(f'Training Mode: {TRAIN_MODE}')
 
-
-nltk.download('wordnet')
-nltk.download('omw-1.4')
-nltk.download('punkt_tab')
-nltk.download('stopwords')
-
-def preProcess(row, stop_words):
-    if type(row) is str:
-        text = row
-    else:
-        text = row[DOCUMENT_FIELD]
-    textArray = [w for w in word_tokenize(text)]
-    noStopWordsTextArray = [w.lower() for w in textArray if not w.lower() in stop_words]
-    lemma = WordNetLemmatizer()
-    lemmaArray = [lemma.lemmatize(w) for w in noStopWordsTextArray]
-    lemmaText =  ' '.join(lemmaArray)
-    if type(row) is str:
-        return lemmaText
-    else:
-        row[DOCUMENT_FIELD] = lemmaText
-        return row
-
-# https://towardsdatascience.com/elegant-text-pre-processing-with-nltk-in-sklearn-pipeline-d6fe18b91eb
-class PreprocessingTransformer(TransformerMixin, BaseEstimator):
-    def __init__(self):
-        self.stop_words = set(stopwords.words('english'))
-        pass
-
-    def fit(self, X, y, **transform_params):
-        return self
-
-    def transform(self, X, **transform_params):
-        X_copy = X.copy()
-        if isinstance(X_copy, pd.DataFrame):
-            X_copy = X_copy.apply(lambda row: preProcess(row, stop_words=self.stop_words), axis=1)
-        else:
-            X_copy = X_copy.apply(lambda value: preProcess(value, stop_words=self.stop_words))
-        return X_copy
 
 @st.cache_resource()
 def loadClassMappings():
@@ -136,6 +94,9 @@ def trainModel():
     TARGET_FIELD = 'target'
     TARGET_FIELD_ENCODED = 'target_encoded'
 
+    if not os.path.exists(RESOURCE_DIR):
+        os.makedirs(RESOURCE_DIR)
+
     rawDf = pd.read_csv(INPUT_FILE)
     rawDf = rawDf.rename(columns={"Document": DOCUMENT_FIELD, "Topic_group": TARGET_FIELD})
     rawDf.info()
@@ -154,7 +115,7 @@ def trainModel():
 
     
     pipeline = Pipeline([
-        ('preprocesssor', PreprocessingTransformer()),
+        ('preprocesssor', CapstonePreprocessingTransformer()),
         ('vectorizer', TfidfVectorizer(max_features=None)),
         ('model', XGBClassifier(n_jobs=-1, objective='multi:softmax', num_class=UNIQUE_TARGET_CLASS_COUNT, colsample_bytree= 0.5, max_depth= 10, subsample= 0.7))
     ])

@@ -23,67 +23,67 @@ memory usage: 747.6+ KB
   </thead>
   <tbody>
     <tr>
-      <td>permission to create new projects needed tuesday october pm permission create needed hello please log assign directly queue has done thanks engineer</td>
+      <td>account locked re locked thank you for working best regards sent locked importance high dear can you please help colleague able log his computer after changing password thank you very much best regards</td>
       <td>Access</td>
     </tr>
     <tr>
-      <td>please enable for on account thursday july pm please enable please reopen provide solution users converted reference needs doing after created please let disable jabber thank thursday july pm re please enable hi update misunderstanding he become user please create him notify delete jabber re please enable hi had chat he wanted explained him problem wait everybody please enable hello guys possible thank wednesday july re please enable dears date july pm please enable hello please advise he requested extension proceed entity allocate extension him looking forward hearing thanks kind analyst ext</td>
+      <td>confluence user confluence user hello name confluence thank</td>
       <td>Access</td>
     </tr>
     <tr>
-      <td>outlook and network ticket be issued regarding pc since end last week resolved thank you best regards senior software developer</td>
+      <td>windows upgrade upgrade dear after upgrading able connect via have attached logs app can you please help thanks senior software developer</td>
       <td>Administrative rights</td>
     </tr>
     <tr>
-      <td>update the right info nexus wednesday pm update right nexus hi figure out weird thing nexus nexus nexus content repositories releases found module has version greater tagged image version tag stable version nexus has greater version which bad version greater than wrong please help delete wrong version nexus wrong version created by fail job run created bad versions thank nexus nexus module image design lead</td>
+      <td>upgrade friday october pm upgrade hello followed instructions package install software center please advise thanks october upgrade hello everyone kind reminder please make update latest version assets highly critical perform upgrade by starting next upgrade pushed assets out date find detailed instructions how perform upgrade please note during update process lose approximately minutes questions encounter difficulties upgrading please hesitate thank kind regards ext october upgrade hello everyone please advised update version version assets highly critical perform upgrade during two weeks based availability order avoid virus attacks latest virus database available order update please follow steps more detailed guide found software center by searching software center search menu best endpoint agent install selected wait installation status becomes installed reboot computer icons newly installed endpoint tools note during update process lose approximately minutes questions encounter difficulties upgrading please hesitate thank kind regards ext hub</td>
       <td>Administrative rights</td>
     </tr>
     <tr>
-      <td>pas access july pm hello maternity leave years back kind provide thank</td>
+      <td>oracle error when trying to log time on day th of error when trying log th hi guys getting error when trying log th you can create card only between start date end date dec can you please help out with thanks</td>
       <td>HR Support</td>
     </tr>
     <tr>
-      <td>new starter thursday july starter form hi please fill thank regards</td>
+      <td>new pas close close dear ask please close opportunity active more date possible thank officer</td>
       <td>HR Support</td>
     </tr>
     <tr>
-      <td>laptop audio problem laptop recognize headphones please assign ticket</td>
+      <td>mail friday pm se la issue si la va similar cum se fond lead</td>
       <td>Hardware</td>
     </tr>
     <tr>
-      <td>cable cat cat va pc</td>
+      <td>incident regarding installed programs and windows start incident hello please be advised today had incident with laptop none programs were installed anything start thank you applications engineer en</td>
       <td>Hardware</td>
     </tr>
     <tr>
-      <td>us oracle codes codes hi please codes want every code other countries applicable thank best regards specialist nj id image upcoming out dates october rd</td>
+      <td>project code delete thursday code delete hi please code thank</td>
       <td>Internal Project</td>
     </tr>
     <tr>
-      <td>new project codes spare re codes spare hi please code spare manage chart accounts values manage values spare redesign template thanks senior accountant ext</td>
+      <td>new project code pas tuesday pm setup has assigned hi please assign kind regards pm setup has assigned hello please advised record number has assigned please review details take appropriate action reference number details assign reference assignment summary null choose template applicable setup please provide short description setup details please attach completed setup form link forms policies forms policies procedures priority affected add requested location center location center please link kind regards ref msg</td>
       <td>Internal Project</td>
     </tr>
     <tr>
-      <td>opportunity sent friday march re opportunity thanks sent friday march re opportunity hi sorry for everything sorted out contracts opportunities properly linked could you please have look confirm hi could you please log ticket for below thank you kind regards applications analyst en sent re opportunity hi able contract level opportunity id add if going opportunity level things looks fine would ask for your link also another opportunity opportunity id with below contract contract id thanks much sent friday march re opportunity hi we have successfully linked mentioned opportunity provided contract could you please check let know if thank you kind regards applications analyst en sent opportunity hi can you please help link below opportunity opportunity id add with below contract contract id thanks upcoming holiday th th th floor blvd district</td>
+      <td>oracle project management change for thursday pm change hi given please thanks</td>
       <td>Miscellaneous</td>
     </tr>
     <tr>
-      <td>value field for spent report spent report hi guys please kindly add spent report hi please kindly log thanks thanks kind regards</td>
+      <td>stuck oracle stuck hi guys for some strange reason we cannot find process does show up processing queue although fully approved could you please kindly check what happened transaction advise hi could you please kindly log ticket thanks kind regards manager</td>
       <td>Miscellaneous</td>
     </tr>
     <tr>
-      <td>new purchase po purchase po dear purchased scanner symbol cs sr link brother flexible tape roll please log allocation please call regarding scanner kind regards administrator</td>
+      <td>thursday pm hey folks keyboard kb has please log installed please perform purchase order how presentation thanks administrator phone</td>
       <td>Purchase</td>
     </tr>
     <tr>
-      <td>reception new delivery hello received items po po po po po po please advise please log thank engineer</td>
+      <td>new purchase po wednesday march pm purchase po dear purchased keyboard please log installation please take consideration mandatory receipts section order receive item ordered how video kind regards administrator</td>
       <td>Purchase</td>
     </tr>
     <tr>
-      <td>joins project joins hi guys joined please him shared folder thanks</td>
+      <td>mailbox full sent saturday full hello full even if space does gets freed</td>
       <td>Storage</td>
     </tr>
     <tr>
-      <td>wants to share with wednesday pm wants share want share accept decline</td>
+      <td>mailbox com wednesday october pm mailbox hi please assist setting dedicated mailbox main managing employer initiatives besides mailbox thank help regards digital communications</td>
       <td>Storage</td>
     </tr>
   </tbody>
