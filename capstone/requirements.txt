@@ -1,7 +1,6 @@
-pandas
-numpy
-xgboost
-scikit-learn
-nltk
-dill
-
+dill===0.3.8
+nltk===3.9.1
+numpy===1.26.4
+pandas===2.2.2
+scikit-learn==1.5.1 
+xgboost===2.1.3
